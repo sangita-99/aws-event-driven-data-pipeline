@@ -19,7 +19,6 @@ SQS Queue → Lambda Function → AWS Glue Job → Processed Data in Amazon S3
 * AWS Lambda
 * AWS Glue
 * Python
-* PySpark
 
 ## Dataset
 
@@ -36,8 +35,6 @@ The dataset used in this project contains sales transaction records including pr
 ## Project Structure
 
 aws-event-driven-data-pipeline
-architecture/
-architecture-diagram.png
 
 data/
 sales_data.csv
@@ -46,7 +43,7 @@ lambda/
 lambda_function.py
 
 glue/
-glue_script.py
+glue_job.py
 
 documentation/
 architecture.md
