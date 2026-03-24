@@ -1,61 +1,85 @@
-# AWS Event-Driven Data Processing Pipeline
+# Event-Driven Data Pipeline on AWS
 
-## Project Overview
+Designed and implemented a scalable, event-driven ETL pipeline to automate data ingestion, validation, transformation, and delivery using AWS services.
 
-This project demonstrates an event-driven data processing pipeline built using AWS services. The system processes datasets stored in Amazon S3 when a processing request is received through an Amazon SQS queue.
+The pipeline processes incoming files in real-time, ensuring data quality, fault tolerance, and observability for reliable downstream analytics.
 
-The architecture uses serverless components to automate the data processing workflow. An SQS message triggers an AWS Lambda function, which starts an AWS Glue job to perform the ETL process. The Glue job reads raw data from Amazon S3, performs transformation operations, and stores the processed output in a separate folder.
+---
 
 ## Architecture
 
-The pipeline follows an event-driven architecture where services communicate asynchronously.
+S3 (Raw Data) → Lambda (Trigger & Validation) → AWS Glue (ETL Processing) → S3 (Processed Data)
 
-SQS Queue → Lambda Function → AWS Glue Job → Processed Data in Amazon S3
+### Supporting Components
+- **Amazon SQS (Dead Letter Queue)** – Captures failed or malformed records for debugging and reprocessing
+- **Amazon CloudWatch** – Logging and monitoring of pipeline execution
+- **Amazon SNS** – Sends alerts for failures and critical events
 
-## Technologies Used
+---
 
-* Amazon S3
-* Amazon SQS
-* AWS Lambda
-* AWS Glue
-* Python
+## ⚙️ Key Features
 
-## Dataset
+- Real-time event-driven data processing using S3 triggers
+- Automated ETL transformation using AWS Glue (PySpark)
+- Fault-tolerant design with SQS Dead Letter Queue
+- End-to-end monitoring using CloudWatch and SNS alerts
+- Structured storage using raw and processed data layers
 
-The dataset used in this project contains sales transaction records including product details, quantity, payment method, and order status.
+---
 
-## Pipeline Workflow
+## 🔄 Workflow
 
-1. A dataset is uploaded to the **raw folder** in the S3 bucket.
-2. A processing request is sent to the **SQS queue**.
-3. The SQS message triggers the **Lambda function**.
-4. Lambda extracts file information and starts the **Glue ETL job**.
-5. The Glue job reads the dataset, performs transformation, and stores the processed output in the **processed folder**.
+1. File is uploaded to S3 (raw layer)
+2. S3 event triggers AWS Lambda
+3. Lambda validates input and triggers AWS Glue job
+4. Glue performs ETL (CSV → Parquet transformation)
+5. Processed data is stored in S3 (processed layer)
+6. Failures are routed to SQS Dead Letter Queue
+7. Alerts are sent via SNS and logs captured in CloudWatch
 
-## Project Structure
+---
 
-aws-event-driven-data-pipeline
+## 🛑 Error Handling & Reliability
 
-data/
-sales_data.csv
+- Implemented AWS native retry mechanisms for transient failures
+- Configured **SQS Dead Letter Queue** to isolate failed records
+- Enabled CloudWatch alarms integrated with SNS for real-time alerts
+- Designed pipeline to prevent data loss and ensure recovery
 
-lambda/
-lambda_function.py
+---
 
-glue/
-glue_job.py
+## ⚡ Performance Optimization
 
-documentation/
-architecture.md
-setup_steps.md
-testing.md
+- Optimized data partitioning to improve processing efficiency
+- Reduced data shuffling during transformations
+- Leveraged efficient storage format (Parquet) for analytics
 
-screenshots/
-sqs_queue.png
-lambda_trigger.png
-glue_job.png
-s3_output.png
+---
 
-## Output
-The processed data is written to the **processed folder in Amazon S3** in Parquet format after applying the transformation logic.
+## 📊 Impact
 
+- Automated end-to-end data pipeline reducing manual intervention
+- Improved data reliability through validation and monitoring
+- Enabled faster query performance with optimized storage format
+
+---
+
+## 📸 Pipeline Execution Evidence
+
+*(Add only 3–5 strong screenshots here)*
+
+- Glue job success
+- Lambda logs
+- CloudWatch monitoring
+- SQS Dead Letter Queue
+
+---
+
+## Tech Stack
+
+- AWS S3
+- AWS Lambda
+- AWS Glue (PySpark)
+- Amazon SQS
+- Amazon SNS
+- Amazon CloudWatch
