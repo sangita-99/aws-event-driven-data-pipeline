@@ -64,16 +64,6 @@ S3 (Raw Data) → Lambda (Trigger & Validation) → AWS Glue (ETL Processing) �
 
 ---
 
-## 📸 Pipeline Execution Evidence
-
-*(Add only 3–5 strong screenshots here)*
-
-- Glue job success
-- Lambda logs
-- CloudWatch monitoring
-- SQS Dead Letter Queue
-
----
 
 ## Tech Stack
 
