@@ -41,10 +41,11 @@ S3 (Raw Data) → Lambda (Trigger & Validation) → AWS Glue (ETL Processing) �
 
 ## 🛑 Error Handling & Reliability
 
-- Implemented AWS native retry mechanisms for transient failures
-- Configured **SQS Dead Letter Queue** to isolate failed records
-- Enabled CloudWatch alarms integrated with SNS for real-time alerts
-- Designed pipeline to prevent data loss and ensure recovery
+
+- Implemented AWS native retry mechanisms for transient failures  
+- Integrated Amazon SQS to handle failed or malformed records  
+- Enabled CloudWatch alarms with SNS notifications for real-time alerts  
+- Designed pipeline to ensure fault tolerance and prevent data loss  
 
 ---
 
